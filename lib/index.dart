@@ -74,9 +74,7 @@ class _ArticleViewState extends State<ArticleView> {
             viewModel.summary,
             viewModel.error,
           )) {
-            (true, _, _) => const Center(
-              child: CircularProgressIndicator(),
-            ),
+            (true, _, _) => const Center(child: CircularProgressIndicator()),
             (_, _, final Exception e) => Text('Error: $e'),
             (_, final summary?, _) => ArticlePage(
               summary: summary,
@@ -128,26 +126,28 @@ class ArticleWidget extends StatelessWidget {
       child: Column(
         spacing: 10,
         children: [
-          if (summary.hasImage) Container(
-            // padding: EdgeInsets.all(16),
-            height: 350,
-            width: 412,
-            color: Color.fromARGB(255, 240, 245, 245),
-            child: Image.network(
+          if (summary.hasImage)
+            Container(
+              // padding: EdgeInsets.all(16),
+              height: 350,
+              width: 412,
+              color: Color.fromARGB(255, 240, 245, 245),
+              child: Image.network(
                 summary.originalImage!.source,
                 fit: BoxFit.fill,
               ),
-          ),
+            ),
           Text(
             summary.titles.normalized,
             textAlign: TextAlign.center,
             overflow: TextOverflow.fade,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
           if (summary.description != null)
             Text(
               summary.description!,
+              textAlign: TextAlign.left,
               overflow: TextOverflow.visible,
               style: Theme.of(context).textTheme.titleLarge,
             ),
