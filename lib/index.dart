@@ -74,7 +74,9 @@ class _ArticleViewState extends State<ArticleView> {
             viewModel.summary,
             viewModel.error,
           )) {
-            (true, _, _) => const CircularProgressIndicator(),
+            (true, _, _) => const Center(
+              child: CircularProgressIndicator(),
+            ),
             (_, _, final Exception e) => Text('Error: $e'),
             (_, final summary?, _) => ArticlePage(
               summary: summary,
@@ -122,23 +124,39 @@ class ArticleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(16),
       child: Column(
         spacing: 10,
         children: [
-          if (summary.hasImage) Image.network(summary.originalImage!.source),
+          if (summary.hasImage) Container(
+            // padding: EdgeInsets.all(16),
+            height: 350,
+            width: 412,
+            color: Color.fromARGB(255, 240, 245, 245),
+            child: Image.network(
+                summary.originalImage!.source,
+                fit: BoxFit.fill,
+              ),
+          ),
           Text(
             summary.titles.normalized,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displaySmall,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.fade,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
+          SizedBox(height: 20,),
           if (summary.description != null)
             Text(
               summary.description!,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodySmall,
+              overflow: TextOverflow.visible,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          Text(summary.extract),
+          Text(
+            summary.extract,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );
