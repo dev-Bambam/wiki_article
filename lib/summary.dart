@@ -239,4 +239,4 @@ String? getFileExtension(String file) {
   return null;
 }
 
-const acceptableImageFormats = ['png', 'jpg', 'jpeg'];
+// const acceptableImageFormats = ['png', 'jpg', 'jpeg'];
