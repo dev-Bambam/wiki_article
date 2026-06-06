@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Summary {
 
- TitlesSet get titles;@JsonKey(name: 'pageid') int get pageId; String get extract;@JsonKey(name: 'extract_html') String get extractHtml; String get lang; String get dir; String get url; String? get description; ImageFile? get thumbnail;@JsonKey(name: 'originalimage') ImageFile? get originalImage;
+ TitlesSet get titles;@JsonKey(name: 'pageid') int get pageId; String get extract;@JsonKey(name: 'extract_html') String get extractHtml; String get lang; String get dir;@JsonKey(name: 'content_urls') ContentUrls get url; String? get description; ImageFile? get thumbnail;@JsonKey(name: 'originalimage') ImageFile? get originalImage;
 /// Create a copy of Summary
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $SummaryCopyWith<$Res>  {
   factory $SummaryCopyWith(Summary value, $Res Function(Summary) _then) = _$SummaryCopyWithImpl;
 @useResult
 $Res call({
- TitlesSet titles,@JsonKey(name: 'pageid') int pageId, String extract,@JsonKey(name: 'extract_html') String extractHtml, String lang, String dir, String url, String? description, ImageFile? thumbnail,@JsonKey(name: 'originalimage') ImageFile? originalImage
+ TitlesSet titles,@JsonKey(name: 'pageid') int pageId, String extract,@JsonKey(name: 'extract_html') String extractHtml, String lang, String dir,@JsonKey(name: 'content_urls') ContentUrls url, String? description, ImageFile? thumbnail,@JsonKey(name: 'originalimage') ImageFile? originalImage
 });
 
 
-$TitlesSetCopyWith<$Res> get titles;$ImageFileCopyWith<$Res>? get thumbnail;$ImageFileCopyWith<$Res>? get originalImage;
+$TitlesSetCopyWith<$Res> get titles;$ContentUrlsCopyWith<$Res> get url;$ImageFileCopyWith<$Res>? get thumbnail;$ImageFileCopyWith<$Res>? get originalImage;
 
 }
 /// @nodoc
@@ -74,7 +74,7 @@ as String,extractHtml: null == extractHtml ? _self.extractHtml : extractHtml // 
 as String,lang: null == lang ? _self.lang : lang // ignore: cast_nullable_to_non_nullable
 as String,dir: null == dir ? _self.dir : dir // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as ContentUrls,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,thumbnail: freezed == thumbnail ? _self.thumbnail : thumbnail // ignore: cast_nullable_to_non_nullable
 as ImageFile?,originalImage: freezed == originalImage ? _self.originalImage : originalImage // ignore: cast_nullable_to_non_nullable
 as ImageFile?,
@@ -88,6 +88,15 @@ $TitlesSetCopyWith<$Res> get titles {
   
   return $TitlesSetCopyWith<$Res>(_self.titles, (value) {
     return _then(_self.copyWith(titles: value));
+  });
+}/// Create a copy of Summary
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ContentUrlsCopyWith<$Res> get url {
+  
+  return $ContentUrlsCopyWith<$Res>(_self.url, (value) {
+    return _then(_self.copyWith(url: value));
   });
 }/// Create a copy of Summary
 /// with the given fields replaced by the non-null parameter values.
@@ -195,7 +204,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir,  String url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir, @JsonKey(name: 'content_urls')  ContentUrls url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Summary() when $default != null:
 return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.lang,_that.dir,_that.url,_that.description,_that.thumbnail,_that.originalImage);case _:
@@ -216,7 +225,7 @@ return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir,  String url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir, @JsonKey(name: 'content_urls')  ContentUrls url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)  $default,) {final _that = this;
 switch (_that) {
 case _Summary():
 return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.lang,_that.dir,_that.url,_that.description,_that.thumbnail,_that.originalImage);case _:
@@ -236,7 +245,7 @@ return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir,  String url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TitlesSet titles, @JsonKey(name: 'pageid')  int pageId,  String extract, @JsonKey(name: 'extract_html')  String extractHtml,  String lang,  String dir, @JsonKey(name: 'content_urls')  ContentUrls url,  String? description,  ImageFile? thumbnail, @JsonKey(name: 'originalimage')  ImageFile? originalImage)?  $default,) {final _that = this;
 switch (_that) {
 case _Summary() when $default != null:
 return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.lang,_that.dir,_that.url,_that.description,_that.thumbnail,_that.originalImage);case _:
@@ -251,7 +260,7 @@ return $default(_that.titles,_that.pageId,_that.extract,_that.extractHtml,_that.
 @JsonSerializable()
 
 class _Summary extends Summary {
-  const _Summary({required this.titles, @JsonKey(name: 'pageid') required this.pageId, required this.extract, @JsonKey(name: 'extract_html') required this.extractHtml, required this.lang, required this.dir, required this.url, this.description, this.thumbnail, @JsonKey(name: 'originalimage') this.originalImage}): super._();
+  const _Summary({required this.titles, @JsonKey(name: 'pageid') required this.pageId, required this.extract, @JsonKey(name: 'extract_html') required this.extractHtml, required this.lang, required this.dir, @JsonKey(name: 'content_urls') required this.url, this.description, this.thumbnail, @JsonKey(name: 'originalimage') this.originalImage}): super._();
   factory _Summary.fromJson(Map<String, dynamic> json) => _$SummaryFromJson(json);
 
 @override final  TitlesSet titles;
@@ -260,7 +269,7 @@ class _Summary extends Summary {
 @override@JsonKey(name: 'extract_html') final  String extractHtml;
 @override final  String lang;
 @override final  String dir;
-@override final  String url;
+@override@JsonKey(name: 'content_urls') final  ContentUrls url;
 @override final  String? description;
 @override final  ImageFile? thumbnail;
 @override@JsonKey(name: 'originalimage') final  ImageFile? originalImage;
@@ -298,11 +307,11 @@ abstract mixin class _$SummaryCopyWith<$Res> implements $SummaryCopyWith<$Res> {
   factory _$SummaryCopyWith(_Summary value, $Res Function(_Summary) _then) = __$SummaryCopyWithImpl;
 @override @useResult
 $Res call({
- TitlesSet titles,@JsonKey(name: 'pageid') int pageId, String extract,@JsonKey(name: 'extract_html') String extractHtml, String lang, String dir, String url, String? description, ImageFile? thumbnail,@JsonKey(name: 'originalimage') ImageFile? originalImage
+ TitlesSet titles,@JsonKey(name: 'pageid') int pageId, String extract,@JsonKey(name: 'extract_html') String extractHtml, String lang, String dir,@JsonKey(name: 'content_urls') ContentUrls url, String? description, ImageFile? thumbnail,@JsonKey(name: 'originalimage') ImageFile? originalImage
 });
 
 
-@override $TitlesSetCopyWith<$Res> get titles;@override $ImageFileCopyWith<$Res>? get thumbnail;@override $ImageFileCopyWith<$Res>? get originalImage;
+@override $TitlesSetCopyWith<$Res> get titles;@override $ContentUrlsCopyWith<$Res> get url;@override $ImageFileCopyWith<$Res>? get thumbnail;@override $ImageFileCopyWith<$Res>? get originalImage;
 
 }
 /// @nodoc
@@ -324,7 +333,7 @@ as String,extractHtml: null == extractHtml ? _self.extractHtml : extractHtml // 
 as String,lang: null == lang ? _self.lang : lang // ignore: cast_nullable_to_non_nullable
 as String,dir: null == dir ? _self.dir : dir // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as ContentUrls,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,thumbnail: freezed == thumbnail ? _self.thumbnail : thumbnail // ignore: cast_nullable_to_non_nullable
 as ImageFile?,originalImage: freezed == originalImage ? _self.originalImage : originalImage // ignore: cast_nullable_to_non_nullable
 as ImageFile?,
@@ -339,6 +348,15 @@ $TitlesSetCopyWith<$Res> get titles {
   
   return $TitlesSetCopyWith<$Res>(_self.titles, (value) {
     return _then(_self.copyWith(titles: value));
+  });
+}/// Create a copy of Summary
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ContentUrlsCopyWith<$Res> get url {
+  
+  return $ContentUrlsCopyWith<$Res>(_self.url, (value) {
+    return _then(_self.copyWith(url: value));
   });
 }/// Create a copy of Summary
 /// with the given fields replaced by the non-null parameter values.
@@ -898,6 +916,550 @@ class __$TitlesSetCopyWithImpl<$Res>
 canonical: null == canonical ? _self.canonical : canonical // ignore: cast_nullable_to_non_nullable
 as String,normalized: null == normalized ? _self.normalized : normalized // ignore: cast_nullable_to_non_nullable
 as String,display: null == display ? _self.display : display // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ContentUrls {
+
+ MobileUrl get mobile;
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ContentUrlsCopyWith<ContentUrls> get copyWith => _$ContentUrlsCopyWithImpl<ContentUrls>(this as ContentUrls, _$identity);
+
+  /// Serializes this ContentUrls to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContentUrls&&(identical(other.mobile, mobile) || other.mobile == mobile));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,mobile);
+
+@override
+String toString() {
+  return 'ContentUrls(mobile: $mobile)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ContentUrlsCopyWith<$Res>  {
+  factory $ContentUrlsCopyWith(ContentUrls value, $Res Function(ContentUrls) _then) = _$ContentUrlsCopyWithImpl;
+@useResult
+$Res call({
+ MobileUrl mobile
+});
+
+
+$MobileUrlCopyWith<$Res> get mobile;
+
+}
+/// @nodoc
+class _$ContentUrlsCopyWithImpl<$Res>
+    implements $ContentUrlsCopyWith<$Res> {
+  _$ContentUrlsCopyWithImpl(this._self, this._then);
+
+  final ContentUrls _self;
+  final $Res Function(ContentUrls) _then;
+
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? mobile = null,}) {
+  return _then(_self.copyWith(
+mobile: null == mobile ? _self.mobile : mobile // ignore: cast_nullable_to_non_nullable
+as MobileUrl,
+  ));
+}
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MobileUrlCopyWith<$Res> get mobile {
+  
+  return $MobileUrlCopyWith<$Res>(_self.mobile, (value) {
+    return _then(_self.copyWith(mobile: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [ContentUrls].
+extension ContentUrlsPatterns on ContentUrls {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ContentUrls value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ContentUrls() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ContentUrls value)  $default,){
+final _that = this;
+switch (_that) {
+case _ContentUrls():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ContentUrls value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ContentUrls() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MobileUrl mobile)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ContentUrls() when $default != null:
+return $default(_that.mobile);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MobileUrl mobile)  $default,) {final _that = this;
+switch (_that) {
+case _ContentUrls():
+return $default(_that.mobile);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MobileUrl mobile)?  $default,) {final _that = this;
+switch (_that) {
+case _ContentUrls() when $default != null:
+return $default(_that.mobile);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ContentUrls implements ContentUrls {
+  const _ContentUrls({required this.mobile});
+  factory _ContentUrls.fromJson(Map<String, dynamic> json) => _$ContentUrlsFromJson(json);
+
+@override final  MobileUrl mobile;
+
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ContentUrlsCopyWith<_ContentUrls> get copyWith => __$ContentUrlsCopyWithImpl<_ContentUrls>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ContentUrlsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContentUrls&&(identical(other.mobile, mobile) || other.mobile == mobile));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,mobile);
+
+@override
+String toString() {
+  return 'ContentUrls(mobile: $mobile)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ContentUrlsCopyWith<$Res> implements $ContentUrlsCopyWith<$Res> {
+  factory _$ContentUrlsCopyWith(_ContentUrls value, $Res Function(_ContentUrls) _then) = __$ContentUrlsCopyWithImpl;
+@override @useResult
+$Res call({
+ MobileUrl mobile
+});
+
+
+@override $MobileUrlCopyWith<$Res> get mobile;
+
+}
+/// @nodoc
+class __$ContentUrlsCopyWithImpl<$Res>
+    implements _$ContentUrlsCopyWith<$Res> {
+  __$ContentUrlsCopyWithImpl(this._self, this._then);
+
+  final _ContentUrls _self;
+  final $Res Function(_ContentUrls) _then;
+
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? mobile = null,}) {
+  return _then(_ContentUrls(
+mobile: null == mobile ? _self.mobile : mobile // ignore: cast_nullable_to_non_nullable
+as MobileUrl,
+  ));
+}
+
+/// Create a copy of ContentUrls
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MobileUrlCopyWith<$Res> get mobile {
+  
+  return $MobileUrlCopyWith<$Res>(_self.mobile, (value) {
+    return _then(_self.copyWith(mobile: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$MobileUrl {
+
+ String get page;
+/// Create a copy of MobileUrl
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MobileUrlCopyWith<MobileUrl> get copyWith => _$MobileUrlCopyWithImpl<MobileUrl>(this as MobileUrl, _$identity);
+
+  /// Serializes this MobileUrl to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MobileUrl&&(identical(other.page, page) || other.page == page));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page);
+
+@override
+String toString() {
+  return 'MobileUrl(page: $page)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MobileUrlCopyWith<$Res>  {
+  factory $MobileUrlCopyWith(MobileUrl value, $Res Function(MobileUrl) _then) = _$MobileUrlCopyWithImpl;
+@useResult
+$Res call({
+ String page
+});
+
+
+
+
+}
+/// @nodoc
+class _$MobileUrlCopyWithImpl<$Res>
+    implements $MobileUrlCopyWith<$Res> {
+  _$MobileUrlCopyWithImpl(this._self, this._then);
+
+  final MobileUrl _self;
+  final $Res Function(MobileUrl) _then;
+
+/// Create a copy of MobileUrl
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,}) {
+  return _then(_self.copyWith(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [MobileUrl].
+extension MobileUrlPatterns on MobileUrl {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MobileUrl value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _MobileUrl() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MobileUrl value)  $default,){
+final _that = this;
+switch (_that) {
+case _MobileUrl():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MobileUrl value)?  $default,){
+final _that = this;
+switch (_that) {
+case _MobileUrl() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String page)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _MobileUrl() when $default != null:
+return $default(_that.page);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String page)  $default,) {final _that = this;
+switch (_that) {
+case _MobileUrl():
+return $default(_that.page);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String page)?  $default,) {final _that = this;
+switch (_that) {
+case _MobileUrl() when $default != null:
+return $default(_that.page);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _MobileUrl implements MobileUrl {
+  const _MobileUrl({required this.page});
+  factory _MobileUrl.fromJson(Map<String, dynamic> json) => _$MobileUrlFromJson(json);
+
+@override final  String page;
+
+/// Create a copy of MobileUrl
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MobileUrlCopyWith<_MobileUrl> get copyWith => __$MobileUrlCopyWithImpl<_MobileUrl>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$MobileUrlToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MobileUrl&&(identical(other.page, page) || other.page == page));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page);
+
+@override
+String toString() {
+  return 'MobileUrl(page: $page)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MobileUrlCopyWith<$Res> implements $MobileUrlCopyWith<$Res> {
+  factory _$MobileUrlCopyWith(_MobileUrl value, $Res Function(_MobileUrl) _then) = __$MobileUrlCopyWithImpl;
+@override @useResult
+$Res call({
+ String page
+});
+
+
+
+
+}
+/// @nodoc
+class __$MobileUrlCopyWithImpl<$Res>
+    implements _$MobileUrlCopyWith<$Res> {
+  __$MobileUrlCopyWithImpl(this._self, this._then);
+
+  final _MobileUrl _self;
+  final $Res Function(_MobileUrl) _then;
+
+/// Create a copy of MobileUrl
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
+  return _then(_MobileUrl(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

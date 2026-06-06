@@ -13,7 +13,7 @@ _Summary _$SummaryFromJson(Map<String, dynamic> json) => _Summary(
   extractHtml: json['extract_html'] as String,
   lang: json['lang'] as String,
   dir: json['dir'] as String,
-  url: json['url'] as String,
+  url: ContentUrls.fromJson(json['content_urls'] as Map<String, dynamic>),
   description: json['description'] as String?,
   thumbnail: json['thumbnail'] == null
       ? null
@@ -30,7 +30,7 @@ Map<String, dynamic> _$SummaryToJson(_Summary instance) => <String, dynamic>{
   'extract_html': instance.extractHtml,
   'lang': instance.lang,
   'dir': instance.dir,
-  'url': instance.url,
+  'content_urls': instance.url,
   'description': instance.description,
   'thumbnail': instance.thumbnail,
   'originalimage': instance.originalImage,
@@ -61,3 +61,16 @@ Map<String, dynamic> _$TitlesSetToJson(_TitlesSet instance) =>
       'normalized': instance.normalized,
       'display': instance.display,
     };
+
+_ContentUrls _$ContentUrlsFromJson(Map<String, dynamic> json) => _ContentUrls(
+  mobile: MobileUrl.fromJson(json['mobile'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$ContentUrlsToJson(_ContentUrls instance) =>
+    <String, dynamic>{'mobile': instance.mobile};
+
+_MobileUrl _$MobileUrlFromJson(Map<String, dynamic> json) =>
+    _MobileUrl(page: json['page'] as String);
+
+Map<String, dynamic> _$MobileUrlToJson(_MobileUrl instance) =>
+    <String, dynamic>{'page': instance.page};

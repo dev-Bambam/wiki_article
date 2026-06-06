@@ -12,7 +12,7 @@ abstract class Summary with _$Summary {
     @JsonKey(name: 'extract_html') required String extractHtml,
     required String lang,
     required String dir,
-    required String url,
+    @JsonKey(name: 'content_urls')required ContentUrls url,
     String? description,
     ImageFile? thumbnail,
     @JsonKey(name: 'originalimage') ImageFile? originalImage,
@@ -60,8 +60,18 @@ String? getFileExtension(String file) {
   if (segments.isNotEmpty) return segments.last;
   return null;
 }
-abstract class ContentUrls with _$ContentUrls{
-  const factory ContentUrls({
-    
-  })
+
+@freezed
+abstract class ContentUrls with _$ContentUrls {
+  const factory ContentUrls({required MobileUrl mobile}) = _ContentUrls;
+  factory ContentUrls.fromJson(Map<String, dynamic> json) =>
+      _$ContentUrlsFromJson(json);
+}
+
+@freezed
+abstract class MobileUrl with _$MobileUrl {
+  const factory MobileUrl({required String page}) = _MobileUrl;
+
+  factory MobileUrl.fromJson(Map<String, dynamic> json) =>
+      _$MobileUrlFromJson(json);
 }
