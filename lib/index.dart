@@ -18,7 +18,6 @@ class ArticleModel {
       throw const HttpException('Failed to update resource');
     }
 
-    print('coming from index.dart:\nresponse body: ${response.body}');
     return Summary.fromJson(jsonDecode(response.body));
   }
 }
