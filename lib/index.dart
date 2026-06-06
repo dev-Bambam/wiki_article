@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
 
-import 'summary.dart';
+// import 'summary.dart';
+import 'fsummary.dart';
 
 class ArticleModel {
   Future<Summary> getRandomArticleSummary() async {
@@ -17,6 +18,7 @@ class ArticleModel {
       throw const HttpException('Failed to update resource');
     }
 
+    print('coming from index.dart:\nresponse body: ${response.body}');
     return Summary.fromJson(jsonDecode(response.body));
   }
 }

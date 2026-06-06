@@ -61,8 +61,8 @@ class Summary {
         'dir': final String dir,
         'description': final String description,
         'content_urls': {
-          'desktop': {'page': final String url},
-          'mobile': {'page': String _},
+          'desktop': {'page': final String _},
+          'mobile': {'page': String url},
         },
       } =>
         Summary(

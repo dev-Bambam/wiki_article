@@ -4,7 +4,7 @@ part 'fsummary.freezed.dart';
 part 'fsummary.g.dart';
 
 @freezed
-class Summary with _$Summary {
+abstract class Summary with _$Summary {
   const factory Summary({
     required TitlesSet titles,
     @JsonKey(name: 'pageid') required int pageId,
@@ -26,7 +26,7 @@ class Summary with _$Summary {
 }
 
 @freezed
-class ImageFile with _$ImageFile {
+abstract class ImageFile with _$ImageFile {
   const factory ImageFile({
     required String source,
     required int width,
@@ -44,7 +44,7 @@ class ImageFile with _$ImageFile {
 }
 
 @freezed
-class TitlesSet with _$TitlesSet {
+abstract class TitlesSet with _$TitlesSet {
   const factory TitlesSet({
     required String canonical,
     required String normalized,
@@ -59,4 +59,9 @@ String? getFileExtension(String file) {
   final segments = file.split('.');
   if (segments.isNotEmpty) return segments.last;
   return null;
+}
+abstract class ContentUrls with _$ContentUrls{
+  const factory ContentUrls({
+    
+  })
 }
