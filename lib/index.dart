@@ -122,20 +122,23 @@ class ArticleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         spacing: 10,
         children: [
           if (summary.hasImage)
             Container(
-              // padding: EdgeInsets.all(16),
-              height: 350,
+              height: 380,
               width: 412,
-              color: Color.fromARGB(255, 240, 245, 245),
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusGeometry.all(Radius.circular(16)),
+                color: Color.fromARGB(255, 229, 226, 225),
+              ),
               child: Image.network(
                 summary.originalImage!.source,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
           Text(
@@ -144,7 +147,7 @@ class ArticleWidget extends StatelessWidget {
             overflow: TextOverflow.fade,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 8),
           if (summary.description != null)
             Text(
               summary.description!,
@@ -154,6 +157,7 @@ class ArticleWidget extends StatelessWidget {
             ),
           Text(
             summary.extract,
+            textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.bodyLarge,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
