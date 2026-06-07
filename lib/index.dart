@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -107,7 +108,14 @@ class ArticlePage extends StatelessWidget {
           ArticleWidget(summary: summary),
           ElevatedButton(
             onPressed: nextArticleCallback,
-            child: Text('Next random article'),
+            style: ButtonStyle(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Next Article'),
+                Icon(Icons.arrow_outward, size: 24, weight: 90,),
+              ],
+            ),
           ),
         ],
       ),
@@ -123,7 +131,7 @@ class ArticleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       child: Column(
         spacing: 10,
         children: [
