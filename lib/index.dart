@@ -12,12 +12,16 @@ class ArticleModel {
       'en.wikipedia.org',
       '/api/rest_v1/page/random/summary',
     );
-    final response = await get(uri);
+    final Response response;
+    try {
+      response = await get(uri);
 
-    if (response.statusCode != 200) {
-      throw const HttpException('Failed to update resource');
+      if (response.statusCode != 200) {
+        throw const HttpException('Failed to update resource');
+      }
+    } catch (e) {
+      throw ClientException('Unable to reach Wikipedia: $e');
     }
-
     return Summary.fromJson(jsonDecode(response.body));
   }
 }
@@ -103,6 +107,7 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: .end,
         children: [
           ArticleWidget(summary: summary),
           ElevatedButton(
