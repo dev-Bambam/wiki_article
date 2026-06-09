@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -108,12 +107,12 @@ class ArticlePage extends StatelessWidget {
           ArticleWidget(summary: summary),
           ElevatedButton(
             onPressed: nextArticleCallback,
-            style: ButtonStyle(),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: .min,
+              mainAxisAlignment: .spaceBetween,
               children: [
                 Text('Next Article'),
-                Icon(Icons.arrow_outward, size: 24, weight: 90,),
+                Icon(Icons.arrow_forward_sharp, size: 24),
               ],
             ),
           ),
@@ -133,6 +132,7 @@ class ArticleWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       child: Column(
+        crossAxisAlignment: .start,
         spacing: 10,
         children: [
           if (summary.hasImage)
@@ -151,7 +151,6 @@ class ArticleWidget extends StatelessWidget {
             ),
           Text(
             summary.titles.normalized,
-            textAlign: TextAlign.center,
             overflow: TextOverflow.fade,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
@@ -159,7 +158,6 @@ class ArticleWidget extends StatelessWidget {
           if (summary.description != null)
             Text(
               summary.description!,
-              textAlign: TextAlign.left,
               overflow: TextOverflow.visible,
               style: Theme.of(context).textTheme.titleLarge,
             ),
