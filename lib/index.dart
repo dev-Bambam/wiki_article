@@ -79,14 +79,32 @@ class _ArticleViewState extends State<ArticleView> {
             viewModel.summary,
             viewModel.error,
           )) {
-            (true, _, _) => const Center(child: CircularProgressIndicator()),
+            (true, _, _) => const Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  color: Colors.amberAccent,
+                  strokeWidth: 7.5,
+                  strokeCap: .round,
+                ),
+              )
+            ),
             (_, _, final Exception e) => Text('Error: $e'),
             (_, final summary?, _) => Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: ArticlePage(
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 50),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                switchInCurve: Curves.easeIn,
+                switchOutCurve: Curves.easeOut,
+
+                key: ValueKey(summary.titles.normalized),
+
+                child: ArticlePage(
                 summary: summary,
                 nextArticleCallback: viewModel.fetchArticle,
               ),
+              )
             ),
             _ => const Text('Something went wrong'),
           };
@@ -113,11 +131,15 @@ class ArticlePage extends StatelessWidget {
         crossAxisAlignment: .end,
         children: [
           ArticleWidget(summary: summary),
+          SizedBox(
+            width: double.infinity,
+            height: 20,
+          ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amberAccent,
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               textStyle: TextStyle(
                 fontSize: 20,
               ),
@@ -162,7 +184,8 @@ class ArticleWidget extends StatelessWidget {
               ),
               child: Image.network(
                 summary.originalImage!.source,
-                fit: BoxFit.cover,
+                fit: .contain,
+                alignment: .bottomRight,
               ),
             ),
           Text(
