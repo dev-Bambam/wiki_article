@@ -81,9 +81,12 @@ class _ArticleViewState extends State<ArticleView> {
           )) {
             (true, _, _) => const Center(child: CircularProgressIndicator()),
             (_, _, final Exception e) => Text('Error: $e'),
-            (_, final summary?, _) => ArticlePage(
-              summary: summary,
-              nextArticleCallback: viewModel.fetchArticle,
+            (_, final summary?, _) => Container(
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: ArticlePage(
+                summary: summary,
+                nextArticleCallback: viewModel.fetchArticle,
+              ),
             ),
             _ => const Text('Something went wrong'),
           };
@@ -111,13 +114,22 @@ class ArticlePage extends StatelessWidget {
         children: [
           ArticleWidget(summary: summary),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.amberAccent,
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              textStyle: TextStyle(
+                fontSize: 20,
+              ),
+              iconSize: 20,
+            ),
             onPressed: nextArticleCallback,
             child: Row(
               mainAxisSize: .min,
-              mainAxisAlignment: .spaceBetween,
+              spacing: 24,
               children: [
                 Text('Next Article'),
-                Icon(Icons.arrow_forward_sharp, size: 24),
+                Icon(Icons.arrow_forward_ios_outlined),
               ],
             ),
           ),
@@ -135,7 +147,6 @@ class ArticleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       child: Column(
         crossAxisAlignment: .start,
         spacing: 10,
