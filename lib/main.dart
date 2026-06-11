@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: materialTheme.light(),
       darkTheme: materialTheme.dark(),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       home: ArticleView()
     );
   }

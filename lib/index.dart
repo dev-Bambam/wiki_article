@@ -163,11 +163,10 @@ class ArticlePage extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: colorScheme.primaryContainer,
-              // foregroundColor: colorScheme.onPrimaryContainer,
+              foregroundColor: colorScheme.onPrimaryContainer,
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               textStyle: TextStyle(
                 fontSize: 20,
-                // color: colorScheme.onPrimaryContainer
               ),
               iconSize: 20,
             ),
