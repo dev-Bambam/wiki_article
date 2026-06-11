@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 
+import 'package:wikipedia_reader/M3/lib/theme.dart';
 import 'index.dart';
 
 void main() {
@@ -15,7 +16,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: ArticleView());
+    final materialTheme = MaterialTheme(ThemeData.light().textTheme);
+    return MaterialApp(
+      theme: materialTheme.light(),
+      darkTheme: materialTheme.dark(),
+      themeMode: ThemeMode.dark,
+      home: ArticleView()
+    );
   }
 }
 

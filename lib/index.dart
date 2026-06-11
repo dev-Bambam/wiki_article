@@ -69,6 +69,8 @@ class _ArticleViewState extends State<ArticleView> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Wikipedia Flutter')),
       body: SafeArea(
@@ -99,13 +101,13 @@ class _ArticleViewState extends State<ArticleView> {
                 viewModel.error,
               )) {
                 // Loading state
-                (true, _, _) => const Center(
-                  key: ValueKey('loading'),
+                (true, _, _) => Center(
+                  key: const ValueKey('loading'),
                   child: SizedBox(
                     width: 50,
                     height: 50,
                     child: CircularProgressIndicator(
-                      color: Colors.amberAccent,
+                      color: colorScheme.primaryContainer,
                       strokeWidth: 7.5,
                       strokeCap: .round,
                     ),
@@ -151,6 +153,7 @@ class ArticlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: .end,
@@ -159,10 +162,13 @@ class ArticlePage extends StatelessWidget {
           SizedBox(width: double.infinity, height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amberAccent,
-              foregroundColor: Colors.white,
+              backgroundColor: colorScheme.primaryContainer,
+              // foregroundColor: colorScheme.onPrimaryContainer,
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              textStyle: TextStyle(fontSize: 20),
+              textStyle: TextStyle(
+                fontSize: 20,
+                // color: colorScheme.onPrimaryContainer
+              ),
               iconSize: 20,
             ),
             onPressed: nextArticleCallback,
@@ -188,6 +194,8 @@ class ArticleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       child: Column(
         crossAxisAlignment: .start,
@@ -200,7 +208,7 @@ class ArticleWidget extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 borderRadius: BorderRadiusGeometry.all(Radius.circular(16)),
-                color: Color.fromARGB(255, 229, 226, 225),
+                color: colorScheme.surfaceContainer,
               ),
               child: Image.network(
                 summary.originalImage!.source,
