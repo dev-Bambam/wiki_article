@@ -73,69 +73,65 @@ class _ArticleViewState extends State<ArticleView> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Wikipedia Flutter')),
-      body: SafeArea(
-        maintainBottomViewPadding: true,
-        child: ListenableBuilder(
-          listenable: viewModel,
-          builder: (context, _) {
-            return AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              switchInCurve: Curves.easeIn,
-              switchOutCurve: Curves.easeOut,
-              transitionBuilder: (child, animation) {
-                return FadeTransition(opacity: animation, child: child);
-              },
-              // Animate transitions between different layout structures
-              layoutBuilder: (currentChild, previousChildren) {
-                return Stack(
-                  // alignment: .center,
-                  children: [
-                    ...previousChildren,
-                    ?currentChild, //if (currentChild != null) currentChild
-                  ],
-                );
-              },
-              child: switch ((
-                viewModel.isLoading,
-                viewModel.summary,
-                viewModel.error,
-              )) {
-                // Loading state
-                (true, _, _) => Center(
-                  key: const ValueKey('loading'),
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      color: colorScheme.primaryContainer,
-                      strokeWidth: 7.5,
-                      strokeCap: .round,
-                    ),
+      body: ListenableBuilder(
+        listenable: viewModel,
+        builder: (context, _) {
+          return AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            switchInCurve: Curves.easeIn,
+            switchOutCurve: Curves.easeOut,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+            // Animate transitions between different layout structures
+            layoutBuilder: (currentChild, previousChildren) {
+              return Stack(
+                children: [
+                  ...previousChildren,
+                  ?currentChild, //if (currentChild != null) currentChild
+                ],
+              );
+            },
+            child: switch ((
+              viewModel.isLoading,
+              viewModel.summary,
+              viewModel.error,
+            )) {
+              // Loading state
+              (true, _, _) => Center(
+                key: const ValueKey('loading'),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    color: colorScheme.primaryContainer,
+                    strokeWidth: 7.5,
+                    strokeCap: .round,
                   ),
                 ),
+              ),
 
-                // Error state
-                (_, _, final Exception e) => Center(
-                  key: ValueKey('error'),
-                  child: Text('Error: $e'),
+              // Error state
+              (_, _, final Exception e) => Center(
+                key: ValueKey('error'),
+                child: Text('Error: $e'),
+              ),
+              // Success State (Data ready)
+              (_, final summary?, _) => Container(
+                key: ValueKey(summary.titles.normalized),
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
+                child: ArticlePage(
+                  summary: summary,
+                  nextArticleCallback: viewModel.fetchArticle,
                 ),
-                // Success State (Data ready)
-                (_, final summary?, _) => Container(
-                  key: ValueKey(summary.titles.normalized),
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
-                  child: ArticlePage(
-                    summary: summary,
-                    nextArticleCallback: viewModel.fetchArticle,
-                  ),
-                ),
-                _ => Center(
-                  key: ValueKey('fallback'),
-                  child: Text('Something really bad happened!'),
-                ),
-              },
-            );
-          },
-        ),
+              ),
+              _ => Center(
+                key: ValueKey('fallback'),
+                child: Text('Something really bad happened!'),
+              ),
+            },
+          );
+        },
       ),
     );
   }

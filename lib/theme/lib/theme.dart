@@ -3,7 +3,8 @@ import "package:flutter/material.dart";
 class MaterialTheme {
   final TextTheme textTheme;
 
-  const MaterialTheme(this.textTheme);
+  MaterialTheme(TextTheme baseTextTheme)
+    : textTheme = baseTextTheme.apply(fontFamily: 'TikTokSans');
 
   static ColorScheme lightScheme() {
     return const ColorScheme(
@@ -342,6 +343,10 @@ class MaterialTheme {
     textTheme: textTheme.apply(
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
+    ),
+    primaryTextTheme: textTheme.apply(
+      bodyColor: colorScheme.onPrimary,
+      displayColor: colorScheme.onPrimary,
     ),
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,

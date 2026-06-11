@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 
-import 'package:wikipedia_reader/M3/lib/theme.dart';
+import 'package:wikipedia_reader/theme/lib/theme.dart';
 import 'index.dart';
 
 void main() {
