@@ -71,44 +71,69 @@ class _ArticleViewState extends State<ArticleView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Wikipedia Flutter')),
-      body: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, _) {
-          return switch ((
-            viewModel.isLoading,
-            viewModel.summary,
-            viewModel.error,
-          )) {
-            (true, _, _) => const Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: CircularProgressIndicator(
-                  color: Colors.amberAccent,
-                  strokeWidth: 7.5,
-                  strokeCap: .round,
+      body: SafeArea(
+        maintainBottomViewPadding: true,
+        child: ListenableBuilder(
+          listenable: viewModel,
+          builder: (context, _) {
+            return AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              transitionBuilder: (child, animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+              // Animate transitions between different layout structures
+              layoutBuilder: (currentChild, previousChildren) {
+                return Stack(
+                  // alignment: .center,
+                  children: [
+                    ...previousChildren,
+                    ?currentChild, //if (currentChild != null) currentChild
+                  ],
+                );
+              },
+              child: switch ((
+                viewModel.isLoading,
+                viewModel.summary,
+                viewModel.error,
+              )) {
+                // Loading state
+                (true, _, _) => const Center(
+                  key: ValueKey('loading'),
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      color: Colors.amberAccent,
+                      strokeWidth: 7.5,
+                      strokeCap: .round,
+                    ),
+                  ),
                 ),
-              )
-            ),
-            (_, _, final Exception e) => Text('Error: $e'),
-            (_, final summary?, _) => Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 50),
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
-                switchInCurve: Curves.easeIn,
-                switchOutCurve: Curves.easeOut,
 
-                key: ValueKey(summary.titles.normalized),
-
-                child: ArticlePage(
-                summary: summary,
-                nextArticleCallback: viewModel.fetchArticle,
-              ),
-              )
-            ),
-            _ => const Text('Something went wrong'),
-          };
-        },
+                // Error state
+                (_, _, final Exception e) => Center(
+                  key: ValueKey('error'),
+                  child: Text('Error: $e'),
+                ),
+                // Success State (Data ready)
+                (_, final summary?, _) => Container(
+                  key: ValueKey(summary.titles.normalized),
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
+                  child: ArticlePage(
+                    summary: summary,
+                    nextArticleCallback: viewModel.fetchArticle,
+                  ),
+                ),
+                _ => Center(
+                  key: ValueKey('fallback'),
+                  child: Text('Something really bad happened!'),
+                ),
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -131,18 +156,13 @@ class ArticlePage extends StatelessWidget {
         crossAxisAlignment: .end,
         children: [
           ArticleWidget(summary: summary),
-          SizedBox(
-            width: double.infinity,
-            height: 20,
-          ),
+          SizedBox(width: double.infinity, height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amberAccent,
               foregroundColor: Colors.white,
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              textStyle: TextStyle(
-                fontSize: 20,
-              ),
+              textStyle: TextStyle(fontSize: 20),
               iconSize: 20,
             ),
             onPressed: nextArticleCallback,
