@@ -225,7 +225,7 @@ class ArticleWidget extends StatelessWidget {
             ),
           Text(
             summary.extract,
-            textAlign: TextAlign.justify,
+            textAlign: .left,
             style: Theme.of(context).textTheme.bodyLarge,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
