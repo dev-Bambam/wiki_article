@@ -5,10 +5,14 @@ import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:wikipedia_reader/theme/lib/theme.dart';
 import 'index.dart';
 
+// void main() {
+//   runApp(
+//     DevicePreview(enabled: kDebugMode, builder: (context) => const MainApp()),
+//   );
+// }
+
 void main() {
-  runApp(
-    DevicePreview(enabled: kDebugMode, builder: (context) => const MainApp()),
-  );
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -16,13 +20,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final materialTheme = MaterialTheme(ThemeData.light().textTheme);
+    final TextTheme baseTextTheme = Theme.of(context).textTheme;
+    final materialTheme = MaterialTheme(baseTextTheme);
     return MaterialApp(
       theme: materialTheme.light(),
       darkTheme: materialTheme.dark(),
       themeMode: ThemeMode.system,
-      home: ArticleView()
+      home: ArticleView(),
     );
   }
 }
-

@@ -4,7 +4,80 @@ class MaterialTheme {
   final TextTheme textTheme;
 
   MaterialTheme(TextTheme baseTextTheme)
-    : textTheme = baseTextTheme.apply(fontFamily: 'TikTokSans');
+    : textTheme = _buildTikTokSansTextTheme(baseTextTheme);
+
+    // 🌟 THE FIX: Explicitly map TikTokSans onto the Material 3 scale
+  static TextTheme _buildTikTokSansTextTheme(TextTheme base) {
+    const String fontFamily = 'TikTokSans';
+
+    return base.copyWith(
+      displayLarge: base.displayLarge?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w700,
+      ),
+      displayMedium: base.displayMedium?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+      displaySmall: base.displaySmall?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+
+      headlineLarge: base.headlineLarge?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w700,
+      ),
+      headlineMedium: base.headlineMedium?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineSmall: base.headlineSmall?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+
+      titleLarge: base.titleLarge?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+      titleMedium: base.titleMedium?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+      titleSmall: base.titleSmall?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+
+      // Explicitly declaring w400 for regular body text stops dark mode stretching
+      bodyLarge: base.bodyLarge?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyMedium: base.bodyMedium?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+      bodySmall: base.bodySmall?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+
+      labelLarge: base.labelLarge?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+      labelMedium: base.labelMedium?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+      ),
+      labelSmall: base.labelSmall?.copyWith(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
 
   static ColorScheme lightScheme() {
     return const ColorScheme(
@@ -336,21 +409,40 @@ class MaterialTheme {
     return theme(darkHighContrastScheme());
   }
 
-  ThemeData theme(ColorScheme colorScheme) => ThemeData(
-    useMaterial3: true,
-    brightness: colorScheme.brightness,
-    colorScheme: colorScheme,
-    textTheme: textTheme.apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
-    ),
-    primaryTextTheme: textTheme.apply(
-      bodyColor: colorScheme.onPrimary,
-      displayColor: colorScheme.onPrimary,
-    ),
-    scaffoldBackgroundColor: colorScheme.surface,
-    canvasColor: colorScheme.surface,
-  );
+  // ... (Keep your lightScheme, darkScheme, etc. exact same methods here) ...
+
+  // 2. Update the master theme builder method
+  ThemeData theme(ColorScheme colorScheme) {
+    // Determine the proper baseline platform typography package based on brightness
+    final Typography typography = Typography.material2021(
+      platform: TargetPlatform.android,
+    );
+    final TextTheme baselineTextTheme =
+        colorScheme.brightness == Brightness.dark
+        ? typography.white
+        : typography.black;
+
+    // Build the custom TikTok Sans typography bound specifically to this brightness context
+    final TextTheme localizedTextTheme =
+        _buildTikTokSansTextTheme(baselineTextTheme).apply(
+          bodyColor: colorScheme.onSurface,
+          displayColor: colorScheme.onSurface,
+        );
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: colorScheme.brightness,
+      colorScheme: colorScheme,
+      textTheme:
+          localizedTextTheme, // 👈 Passes the crisp, explicit font-weights
+      primaryTextTheme: localizedTextTheme.apply(
+        bodyColor: colorScheme.onPrimary,
+        displayColor: colorScheme.onPrimary,
+      ),
+      scaffoldBackgroundColor: colorScheme.surface,
+      canvasColor: colorScheme.surface,
+    );
+  }
 
   List<ExtendedColor> get extendedColors => [];
 }
